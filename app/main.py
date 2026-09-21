@@ -30,11 +30,22 @@ def get_human_age(cat_age: int, dog_age: int) -> list:
     Returns:
         List with [cat_human_age, dog_human_age]
 
+    Raises:
+        TypeError: if cat_age or dog_age is not an int (bool is rejected too).
+        ValueError: if cat_age or dog_age is negative.
+
     Examples:
         get_human_age(0, 0) == [0, 0]
         get_human_age(15, 15) == [1, 1]
         get_human_age(24, 24) == [2, 2]
     """
+    for name, age in (("cat_age", cat_age), ("dog_age", dog_age)):
+        if not isinstance(age, int) or isinstance(age, bool):
+            raise TypeError(
+                f"{name} must be an integer, got {type(age).__name__}"
+            )
+        if age < 0:
+            raise ValueError(f"{name} cannot be negative, got {age}")
 
     cat_interval = [15, 9, 4]
     dog_interval = [15, 9, 5]
